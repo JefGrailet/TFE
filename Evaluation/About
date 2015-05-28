@@ -1,0 +1,11 @@
+AS3209_38:
+-prefix is 188.101.0.0/16 (Germany)
+-measured with plnode-04.gpolab.bbn.com (BBN technologies, Massachussets, USA)
+
+AS3209_39:
+-prefix is 188.102.0.0/16 (Germany)
+-measured with planetlab-02.vt.nodes.planet-lab.org (Virginia Tech, Virginia, USA)
+
+AS3209_99:
+-prefix is 92.210.0.0/16 (Germany)
+-measured with pluto.cs.brown.edu (Brown University, Rhode Island, USA)

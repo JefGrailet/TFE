@@ -1,0 +1,18 @@
+On bipartite graphs:
+Amount of switches: 41337
+Amount of routers: 124130
+Amount of subnets: 375033
+Amount of edges (Switches - Routers): 124315
+Amount of edges (Routers - Subnets): 652463
+Possible edges (Switches - Routers): 5131161810
+Possible edges (Routers - Subnets): 46552846290
+Density (Switches - Routers): 2.42274565884e-05
+Density (Routers - Subnets): 1.40155340006e-05
+Average switch degree: 3.00735418632
+Average router degree: 5.25628776283
+Average subnet degree: 1.73974823549
+Highest switch degree: 2071
+Highest router degree: 3364
+Highest subnet degree: 235
+Amount of degree-1 routers: 106120
+Amount of degree-1 subnets: 133522

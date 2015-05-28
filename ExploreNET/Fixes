@@ -1,0 +1,61 @@
+Remarks on ExploreNET and fixes - By Jean-François Grailet
+==========================================================
+
+At the very beginning (circa september/october 2014), some problems were 
+found in ExploreNET while restructuring its code and designing refinement 
+techniques. This file lists the most notable.
+
+* There were several errors regarding memory usage in the original code:
+  -In the original code (ExploreNETMain, run_explorenet_ methods), threads are 
+   never deleted, nor the array pointing to them when several threads are used.
+  -Furthermore, the deletion of a thread does not completely free the memory; 
+   indeed, there is still the Runnable class given to Thread to delete since 
+   it is created with new. Solution: edit Thread.cpp so that the destructor 
+   now checks that *runnable is NULL, and if it is not the case, it will 
+   delete it.
+  -The method inferRemoteSubnet() of SubnetInferrer class does not delete the 
+   following elements: siteRecord, sitePrevRecord, sitePrevPrevRecord when the 
+   method is able to complete (i.e. when there is no exception caught). These 
+   elements are no longer used upon returning subnetSite, therefore they were 
+   (small) memory leaks.
+  -Also, populateRecords() has a small leak (one record, to be exact) most of 
+   the time, when the discovery works. Indeed, before the part repositioning 
+   the subnet, rec can be non null and point to a legitimate record. However, 
+   when the program does not re-position the site, rec is never free'd. The 
+   leak can be avoided by just adding this piece of code right after the 
+   deletion of firstICMPEchoReply:
+   
+   if(rec != 0)
+   {
+	    delete rec;
+	    rec = 0;
+   }
+   
+  -Risky behavior at line 335 in SubnetInferrer.cpp (original code of 
+   ExploreNET v2.1): what guarantees us *siteRecord is not null to be able to 
+   delete it ?
+
+* Some unnecessary conditions were found:
+  -imbricated if(debug){ at line 941 in SubnetInferrer.cpp (in original 
+   ExploreNET v2.1 code)
+  -still in SubnetInferrer.cpp, the subnet reposition part in 
+   populateRecords() is put inside a block with condition "firstICMPEchoReply 
+   != 0" while the above block of code is enterred with 
+   "firstICMPEchoReply == 0" and throws an exception (therefore, program 
+   exits populateRecords()). Therefore, there is no need to put the subnet 
+   reposition part under that condition.
+  -consecutive if(debug){ blocks of code which could be fused into a single 
+   one. An example can be found in getDistanceICMP() from PalmTree.cpp, line 
+   255 in the original code of ExploreNET v2.1.
+
+* The initial code seems to allow null subnet sites with an existing 
+  alternative. In TreeNET, this is forbidden for the sake of the consistensy 
+  of the sites set.
+  
+* 29/10/2014: a subtle problem has been found in DirectProber.cpp. Indeed, 
+  with a large amount of threads being spawned, large amount of DirectProber 
+  instances are created (obviously, for probing purposes). However, the 
+  constructor of DirectProber calls 3 times the function open() (to check 
+  something in dev/null/) without closing the the files afterwards, resulting 
+  in the OS running out of file descriptors. This caused the whole program to 
+  crash for no apparent reason.

@@ -1,0 +1,51 @@
+About TFE repository - By Jean-François Grailet, May 28, 2015
+=============================================================
+
+This repository contains files related to my master thesis (TFE standing for 
+Travail de Fin d'Etude) on "Measuring and Modeling the Internet Graph". It is 
+during this master thesis that I conceived and implemented TreeNET, which is 
+freely available in the treenet repository along a month worth of meausrements 
+collected from the PlanetLab testbed.
+
+However, there are some files which were relevant to my master thesis which 
+did not fit in the treenet repository. This is why this side repository was 
+created.
+
+This repository contains the following folders:
+
+* Campaign/: contains a bunch of Shell scripts which were used to launch a 
+  daily campaign on AS224 with TreeNET and several PlanetLab nodes. They are 
+  provided as an example of the typical operations that were done on a daily 
+  basis with PlanetLab. The names of the files should be self-explanatory.
+  
+  Note, however, that several lines in the scripts were based on my own laptop 
+  file system (for example for my RSA private key), therefore, if one wants 
+  to re-use theses scripts for him or herself, he/she should carefully edit 
+  the scripts.
+
+* Evaluation/: contains some console dumps from TreeNET, along the 
+  corresponding data sets, which were used as a basis to evaluate the 
+  efficiency of some algorithmic steps of TreeNET (i.e. bypass technique and 
+  refinement step). The console dumps/data sets are from a measurement 
+  campaign on AS3209.
+  
+* ExploreNET/: contains a single file "Fixes" listing some of the problems of 
+  the original ExploreNET (v2.1) which were fixed at the very beginning. This 
+  includes some minor issues and memory leaks.
+
+* Python/: a folder containing some Python scripts which were used to plot 
+  data collected with TreeNET to highlight some of its characteristics. It is 
+  worth noting that the data sets used for the plots found in my master thesis 
+  are found in the treenet repository as:
+  
+  Measurements/AS224/20-04
+  Measurements/AS5400/29-03
+  
+  Each script is commented and isolated with PDF/text files which were 
+  produced with it.
+
+Contact
+=======
+
+Student address (! not permanent): Jean-Francois.Grailet@student.ulg.ac.be
+Permanent contact: jefgrailet@hotmail.com
